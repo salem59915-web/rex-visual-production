@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>توفير المودل - REX</title>
+  <link rel="stylesheet" href="/src/style.css" />
+  <style>
+    .models-page {
+      min-height: 100vh;
+      padding-top: 100px;
+      background-color: var(--primary-dark);
+    }
+
+    .models-header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding: 0 20px;
+    }
+
+    .models-header h1 {
+      font-size: 42px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      color: var(--text-light);
+    }
+
+    .models-header p {
+      font-size: 18px;
+      color: var(--text-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 30px;
+      padding: 10px 20px;
+      background: rgba(139, 0, 0, 0.2);
+      color: var(--accent-red-light);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .back-button:hover {
+      background: rgba(139, 0, 0, 0.3);
+      transform: translateX(5px);
+    }
+
+    .filters-section {
+      margin-bottom: 50px;
+      padding: 20px;
+      border-top: 1px solid rgba(139, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .filters-title {
+      color: var(--text-light);
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .filters {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .filter-dropdown {
+      position: relative;
+    }
+
+    .filter-btn {
+      width: 100%;
+      padding: 12px 16px;
+      background: transparent;
+      color: var(--text-light);
+      border: 1.5px solid rgba(139, 0, 0, 0.4);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: right;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--accent-red-light);
+      background: rgba(139, 0, 0, 0.1);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      background: var(--primary-dark);
+      border: 1.5px solid rgba(139, 0, 0, 0.4);
+      border-radius: 8px;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin-top: 5px;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 12px 16px;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(139, 0, 0, 0.2);
+    }
+
+    .dropdown-item.selected {
+      background: rgba(139, 0, 0, 0.3);
+      color: var(--accent-red-light);
+      font-weight: 600;
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 60px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .video-card {
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(220, 20, 60, 0.05) 100%);
+      border: 1px solid rgba(139, 0, 0, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .video-card:hover {
+      border-color: var(--accent-red-light);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2);
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 177.78%;
+      height: 0;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      preload: none;
+    }
+
+    .video-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(139, 0, 0, 0.3);
+      border-top: 3px solid var(--accent-red);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 10;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .video-info {
+      padding: 20px;
+    }
+
+    .video-info h3 {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      font-weight: 900;
+    }
+
+    .video-info p {
+      font-size: 14px;
+      color: var(--text-gray);
+      margin-bottom: 12px;
+    }
+
+    .video-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .video-btn {
+      flex: 1;
+      padding: 10px 12px;
+      background: rgba(139, 0, 0, 0.8);
+      color: var(--text-light);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .video-btn:hover {
+      background: var(--accent-red);
+      transform: translateY(-2px);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 450px;
+      height: 90vh;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .modal-video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(139, 0, 0, 0.8);
+      color: var(--text-light);
+      border: none;
+      font-size: 32px;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 2001;
+    }
+
+    .close-modal:hover {
+      background: var(--accent-red-light);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .no-results {
+      text-align: center;
+      color: var(--text-gray);
+      font-size: 18px;
+      padding: 60px 20px;
+    }
+
+    @media (max-width: 768px) {
+      .models-header h1 {
+        font-size: 28px;
+      }
+
+      .models-header p {
+        font-size: 16px;
+      }
+
+      .modal-content {
+        width: 95%;
+        max-height: 95vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-text">REX</span>
+        <span class="logo-dot"></span>
+      </div>
+      <nav class="nav">
+        <a href="/" class="nav-link">الرئيسية</a>
+        <a href="/#services" class="nav-link">الخدمات</a>
+        <a href="/#portfolio" class="nav-link">أعمالنا</a>
+        <a href="/#contact" class="nav-link">تواصل معنا</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="models-page">
+    <div class="container">
+      <a href="/" class="back-button">← العودة للرئيسية</a>
+
+      <div class="models-header">
+        <h1>👤 توفير المودل</h1>
+        <p>نماذج احترافيين لجميع أنواع الإنتاجات والحملات</p>
+      </div>
+
+      <div class="filters-section">
+        <div class="filters-title">تصفية حسب:</div>
+        <div class="filters">
+          <div class="filter-dropdown">
+            <button class="filter-btn" data-filter="gender">الجنس ▼</button>
+            <div class="dropdown-menu" data-filter="gender">
+              <div class="dropdown-item selected" data-value="all">الكل</div>
+              <div class="dropdown-item" data-value="male">ذكر</div>
+              <div class="dropdown-item" data-value="female">أنثى</div>
+            </div>
+          </div>
+
+          <div class="filter-dropdown">
+            <button class="filter-btn" data-filter="age">العمر ▼</button>
+            <div class="dropdown-menu" data-filter="age">
+              <div class="dropdown-item selected" data-value="all">الكل</div>
+              <div class="dropdown-item" data-value="18-25">18-25 سنة</div>
+              <div class="dropdown-item" data-value="26-35">26-35 سنة</div>
+              <div class="dropdown-item" data-value="36-45">36-45 سنة</div>
+              <div class="dropdown-item" data-value="46+">46+ سنة</div>
+            </div>
+          </div>
+
+          <div class="filter-dropdown">
+            <button class="filter-btn" data-filter="city">المدينة ▼</button>
+            <div class="dropdown-menu" data-filter="city">
+              <div class="dropdown-item selected" data-value="all">الكل</div>
+              <div class="dropdown-item" data-value="riyadh">الرياض</div>
+              <div class="dropdown-item" data-value="jeddah">جدة</div>
+              <div class="dropdown-item" data-value="eastern">الشرقية</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="videos-grid" id="modelsGrid"></div>
+      <div class="no-results" id="noResults" style="display: none;">لا توجد نماذج مطابقة للفلاتر المحددة</div>
+    </div>
+  </div>
+
+  <div id="videoModal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <video id="modalVideo" class="modal-video" controls autoplay></video>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 REX Visual Production. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script>
+    let allModels = [];
+    let filteredModels = [];
+    let currentFilters = { gender: 'all', age: 'all', city: 'all' };
+
+    async function loadModels() {
+      try {
+        const response = await fetch('/models-data.json');
+        const data = await response.json();
+        allModels = data;
+        filteredModels = [...allModels];
+        renderModels();
+        setupFilters();
+      } catch (error) {
+        console.error('Error loading models:', error);
+      }
+    }
+
+    function setupFilters() {
+      document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
+        const filterBtn = dropdown.querySelector('.filter-btn');
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const items = menu.querySelectorAll('.dropdown-item');
+
+        filterBtn.addEventListener('click', () => {
+          menu.classList.toggle('active');
+        });
+
+        items.forEach(item => {
+          item.addEventListener('click', () => {
+            const filterType = menu.dataset.filter;
+            const value = item.dataset.value;
+
+            menu.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+
+            filterBtn.textContent = item.textContent + ' ▼';
+
+            currentFilters[filterType] = value;
+            menu.classList.remove('active');
+            applyFilters();
+          });
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.filter-dropdown')) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+        }
+      });
+    }
+
+    function applyFilters() {
+      filteredModels = allModels.filter(model => {
+        const genderMatch = currentFilters.gender === 'all' || model.gender === currentFilters.gender;
+        const ageMatch = currentFilters.age === 'all' || model.age === currentFilters.age;
+        const cityMatch = currentFilters.city === 'all' || model.city === currentFilters.city;
+        return genderMatch && ageMatch && cityMatch;
+      });
+      renderModels();
+    }
+
+    function renderModels() {
+      const grid = document.getElementById('modelsGrid');
+      const noResults = document.getElementById('noResults');
+
+      if (filteredModels.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+
+      noResults.style.display = 'none';
+      grid.innerHTML = filteredModels.map((model, index) => {
+        const cityName = model.city === 'riyadh' ? 'الرياض' : model.city === 'jeddah' ? 'جدة' : 'الشرقية';
+        const genderName = model.gender === 'male' ? '👨 ذكر' : '👩 أنثى';
+        const hasVideo = model.video && model.video.length > 0;
+        const hasImage = model.image && model.image.length > 0;
+        
+        let mediaContent = '';
+        if (hasVideo) {
+          mediaContent = `<video autoplay muted loop playsinline preload="metadata" poster="${model.image || ''}" style="width: 100%; height: 100%; object-fit: cover;"><source src="${model.video}" type="video/mp4"></video><div class="loading-spinner"></div>`;
+        } else if (hasImage) {
+          mediaContent = `<img src="${model.image}" alt="صورة" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">`;
+        }
+        
+        return `
+          <div class="video-card">
+            <div class="video-container" id="container-${index}">
+              ${mediaContent}
+            </div>
+            <div class="video-info">
+              <h3>${model.name}</h3>
+              <p>${genderName} • ${model.age} سنة • 📍 ${cityName}</p>
+              <div class="video-actions">
+                <button class="video-btn" onclick="openModal(${index})">عرض</button>
+                <button class="video-btn" onclick="viewProfile('${model.id}')">ملف شخصي</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // معالجة أحداث الفيديو
+      filteredModels.forEach((model, index) => {
+        if (model.video) {
+          setTimeout(() => {
+            const container = document.getElementById(`container-${index}`);
+            const video = container?.querySelector('video');
+            const spinner = container?.querySelector('.loading-spinner');
+            
+            if (video && spinner) {
+              // إخفاء علامة التحميل عند بدء التشغيل
+              video.addEventListener('play', () => {
+                spinner.style.display = 'none';
+              });
+              
+              // إظهار علامة التحميل عند التوقف للتحميل
+              video.addEventListener('waiting', () => {
+                spinner.style.display = 'flex';
+              });
+              
+              // إخفاء علامة التحميل عند التحميل
+              video.addEventListener('canplay', () => {
+                spinner.style.display = 'none';
+              });
+            }
+          }, 100);
+        }
+      });
+    }
+
+    function openModal(index) {
+      const modal = document.getElementById('videoModal');
+      const modalVideo = document.getElementById('modalVideo');
+      if (filteredModels[index].video) {
+        modalVideo.src = filteredModels[index].video;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('videoModal');
+      const modalVideo = document.getElementById('modalVideo');
+      modal.classList.remove('active');
+      modalVideo.pause();
+      document.body.style.overflow = 'auto';
+    }
+
+    function viewProfile(modelId) {
+      window.location.href = `/services/model-profile.html?id=${modelId}`;
+    }
+
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    loadModels();
+  </script>
+</body>
+</html>
