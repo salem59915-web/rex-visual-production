@@ -428,7 +428,7 @@
 
     async function loadModels() {
       try {
-        const response = await fetch('models-data.json');
+        const response = await fetch('/models-data.json');
         const data = await response.json();
         allModels = data;
         filteredModels = [...allModels];
