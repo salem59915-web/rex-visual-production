@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ملف شخصي - REX</title>
-  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="stylesheet" href="/rex-visual-production/src/style.css" />
   <style>
     .profile-page {
       min-height: 100vh;
@@ -230,7 +230,7 @@
 
   <div class="profile-page">
     <div class="container">
-      <a href="/services/models.html" class="back-button">← العودة للمودلز</a>
+      <a href="/rex-visual-production/services/models.html" class="back-button">← العودة للمودلز</a>
 
       <div class="profile-header">
         <h1 id="profileName">👤 المودل</h1>
@@ -263,7 +263,7 @@
 
     async function loadModels() {
       try {
-        const response = await fetch('/models-data.json');
+        const response = await fetch('/rex-visual-production/models-data.json');
         const data = await response.json();
         allModels = data;
         

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>توفير المودل - REX</title>
-  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="stylesheet" href="/rex-visual-production/src/style.css" />
   <style>
     .models-page {
       min-height: 100vh;
@@ -428,7 +428,7 @@
 
     async function loadModels() {
       try {
-        const response = await fetch('/models-data.json');
+        const response = await fetch('/rex-visual-production/models-data.json');
         const data = await response.json();
         allModels = data;
         filteredModels = [...allModels];
