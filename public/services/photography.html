@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>التصوير الفوتوغرافي - REX</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <style>
+      .service-page { min-height: 100vh; padding-top: 100px; background-color: var(--primary-dark); }
+      .service-header { text-align: center; margin-bottom: 40px; padding: 0 20px; }
+      .service-header h1 { font-size: 42px; font-weight: 900; margin-bottom: 20px; color: var(--text-light); }
+      .back-button { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 30px; padding: 10px 20px; background: rgba(139, 0, 0, 0.2); color: var(--accent-red-light); text-decoration: none; border-radius: 6px; transition: all 0.3s ease; font-weight: 600; }
+      .back-button:hover { background: rgba(139, 0, 0, 0.3); transform: translateX(5px); }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      
+      .filters { display: flex; gap: 15px; justify-content: center; margin-bottom: 50px; flex-wrap: wrap; }
+      .filter-btn { padding: 12px 25px; background: rgba(139, 0, 0, 0.2); color: var(--text-light); border: 1px solid var(--border-color); border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-size: 14px; font-weight: 600; }
+      .filter-btn:hover { background: rgba(139, 0, 0, 0.4); transform: translateY(-2px); }
+      .filter-btn.active { background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%); border-color: var(--accent-red-light); }
+      
+      .examples-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
+      
+      .example-card { background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(220, 20, 60, 0.05) 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; transition: all 0.3s ease; }
+      .example-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(139, 0, 0, 0.2); }
+      
+      .example-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; }
+      .example-name { font-size: 20px; font-weight: 700; color: var(--text-light); }
+      .example-rating { display: flex; align-items: center; gap: 5px; }
+      .star { color: #FFD700; font-size: 16px; }
+      .rating-count { color: var(--text-gray); font-size: 14px; }
+      
+      .example-image { width: 100%; height: 200px; background: linear-gradient(135deg, rgba(139, 0, 0, 0.3) 0%, rgba(220, 20, 60, 0.2) 100%); border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+      
+      .request-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%); color: var(--text-light); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 16px; }
+      .request-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4); }
+      
+      .section-title { font-size: 28px; font-weight: 900; color: var(--text-light); margin-bottom: 40px; text-align: center; }
+      .section-title::after { content: ""; display: block; width: 60px; height: 3px; background: var(--accent-red-light); margin: 15px auto 0; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="logo"><span class="logo-text">REX</span><span class="logo-dot"></span></div>
+        <nav class="nav">
+          <a href="/" class="nav-link">الرئيسية</a>
+          <a href="/#services" class="nav-link">الخدمات</a>
+          <a href="/#portfolio" class="nav-link">أعمالنا</a>
+          <a href="/#contact" class="nav-link">تواصل معنا</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="service-page">
+      <div class="container">
+        <a href="/" class="back-button">← العودة للرئيسية</a>
+        
+        <div class="service-header">
+          <h1>📸 التصوير الفوتوغرافي</h1>
+          <p>تصوير احترافي يعكس جودة وهوية علامتك التجارية</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">كل الأنواع</button>
+          <button class="filter-btn" data-filter="products">المنتجات</button>
+          <button class="filter-btn" data-filter="events">الفعاليات</button>
+          <button class="filter-btn" data-filter="portrait">البورتريه</button>
+        </div>
+
+        <!-- Examples Grid -->
+        <h2 class="section-title">أعمالنا في التصوير</h2>
+        <div class="examples-grid">
+          <!-- Example 1 -->
+          <div class="example-card" data-type="products">
+            <div class="example-header">
+              <span class="example-name">تصوير منتجات</span>
+              <div class="example-rating">
+                <span class="star">★★★★★</span>
+                <span class="rating-count">(5)</span>
+              </div>
+            </div>
+            <div class="example-image">📦</div>
+            <button class="request-btn" onclick="requestService('تصوير المنتجات')">اطلب الآن</button>
+          </div>
+
+          <!-- Example 2 -->
+          <div class="example-card" data-type="portrait">
+            <div class="example-header">
+              <span class="example-name">تصوير بورتريه</span>
+              <div class="example-rating">
+                <span class="star">★★★★★</span>
+                <span class="rating-count">(5)</span>
+              </div>
+            </div>
+            <div class="example-image">👤</div>
+            <button class="request-btn" onclick="requestService('تصوير البورتريه')">اطلب الآن</button>
+          </div>
+
+          <!-- Example 3 -->
+          <div class="example-card" data-type="events">
+            <div class="example-header">
+              <span class="example-name">تصوير الفعاليات</span>
+              <div class="example-rating">
+                <span class="star">★★★★★</span>
+                <span class="rating-count">(5)</span>
+              </div>
+            </div>
+            <div class="example-image">🎉</div>
+            <button class="request-btn" onclick="requestService('تصوير الفعاليات')">اطلب الآن</button>
+          </div>
+
+          <!-- Example 4 -->
+          <div class="example-card" data-type="products">
+            <div class="example-header">
+              <span class="example-name">تصوير الطعام</span>
+              <div class="example-rating">
+                <span class="star">★★★★★</span>
+                <span class="rating-count">(5)</span>
+              </div>
+            </div>
+            <div class="example-image">🍽️</div>
+            <button class="request-btn" onclick="requestService('تصوير الطعام')">اطلب الآن</button>
+          </div>
+
+          <!-- Example 5 -->
+          <div class="example-card" data-type="portrait">
+            <div class="example-header">
+              <span class="example-name">تصوير عائلي</span>
+              <div class="example-rating">
+                <span class="star">★★★★★</span>
+                <span class="rating-count">(5)</span>
+              </div>
+            </div>
+            <div class="example-image">👨‍👩‍👧‍👦</div>
+            <button class="request-btn" onclick="requestService('التصوير العائلي')">اطلب الآن</button>
+          </div>
+
+          <!-- Example 6 -->
+          <div class="example-card" data-type="events">
+            <div class="example-header">
+              <span class="example-name">تصوير الزفاف</span>
+              <div class="example-rating">
+                <span class="star">★★★★★</span>
+                <span class="rating-count">(5)</span>
+              </div>
+            </div>
+            <div class="example-image">💒</div>
+            <button class="request-btn" onclick="requestService('تصوير الزفاف')">اطلب الآن</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 REX Visual Production. جميع الحقوق محفوظة.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Filter functionality
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.dataset.filter;
+          document.querySelectorAll('.example-card').forEach(card => {
+            if (filter === 'all' || card.dataset.type === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Request service function
+      function requestService(name) {
+        const message = `أريد طلب خدمة التصوير الفوتوغرافي - ${name}`;
+        const contactForm = document.querySelector('textarea[name="message"]');
+        if (contactForm) {
+          contactForm.value = message;
+        }
+        window.location.href = '#contact';
+      }
+    </script>
+  </body>
+</html>
