@@ -25,8 +25,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-      - name: Install pnpm
-        run: npm install -g pnpm
+          cache-dependency-path: 'package.json'
 
       - name: Install dependencies
         run: pnpm install
