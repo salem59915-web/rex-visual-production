@@ -227,8 +227,7 @@
           <p>اطلع على أمثلة من أعمالنا الإبداعية والمبتكرة في مجال صناعة المحتوى</p>
         </div>
 
-        <div class="videos-grid">
-          <p style="text-align: center; color: var(--text-gray);">لا توجد أعمال حاليًا في هذا القسم.</p>
+        <div class="videos-grid" id="videosGrid">
         </div>
       </div>
     </div>
@@ -249,7 +248,11 @@
     </footer>
 
     <script>
-      const videos = [];
+      const videos = [
+        '/rex-visual-production/public/videos/video1.mp4',
+        '/rex-visual-production/public/videos/video2.mp4',
+        '/rex-visual-production/public/videos/video3.mp4'
+      ];
 
       function openModal(index) {
         const modal = document.getElementById('videoModal');
@@ -280,6 +283,32 @@
           closeModal();
         }
       });
+
+      // Function to render video cards
+      function renderVideos() {
+        const grid = document.getElementById('videosGrid');
+        if (!grid) return;
+
+        if (videos.length === 0) {
+          grid.innerHTML = '<p style="text-align: center; color: var(--text-gray);">لا توجد أعمال حاليًا في هذا القسم.</p>';
+          return;
+        }
+
+        grid.innerHTML = videos.map((videoUrl, index) => `
+          <div class="video-card" onclick="openModal(${index})">
+            <div class="video-container">
+              <video src="${videoUrl}" muted preload="metadata"></video>
+            </div>
+            <div class="video-info">
+              <h3>فيديو رقم ${index + 1}</h3>
+              <p>اضغط للمشاهدة</p>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render videos on page load
+      document.addEventListener('DOMContentLoaded', renderVideos);
 
       // Smooth scrolling for navigation links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
