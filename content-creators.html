@@ -252,7 +252,7 @@
         'public/videos/SnapTik-dot-Kim-3fa301890436115e4d432ae3e90c37de.mp4',
         'public/videos/snaptik_7496610688593317138_hd.mp4',
         'public/videos/snaptik_7535167891432410386_hd.mp4',
-        'public/videos/snaptik_7567794529164643592_hd 3.mp4'
+        'public/videos/snaptik_7567794529164643592_hd_3.mp4'
       ];
 
       function openModal(index) {
@@ -298,8 +298,7 @@
         grid.innerHTML = videos.map((videoUrl, index) => `
           <div class="video-card" onclick="openModal(${index})">
             <div class="video-container">
-              <video src="${videoUrl}" muted preload="metadata"></video>
-            </div>
+             <video src=\"\${videoUrl}\" autoplay muted loop playsinline preload=\"metadata\"></video>         </div>
             <div class="video-info">
               <h3>فيديو رقم ${index + 1}</h3>
               <p>اضغط للمشاهدة</p>
