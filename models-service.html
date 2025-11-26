@@ -298,52 +298,7 @@
 
 
 
-        .video-info {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
 
-        .video-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-light);
-        }
-
-        .video-description {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.5;
-        }
-
-        .video-actions {
-            margin-top: auto;
-            padding-top: 12px;
-            border-top: 1px solid rgba(139, 46, 46, 0.2);
-            display: flex;
-            gap: 10px;
-        }
-
-        .video-actions button {
-            flex: 1;
-            padding: 10px;
-            background: var(--accent-red);
-            color: var(--text-light);
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
-        }
-
-        .video-actions button:hover {
-            background: #a03030;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 46, 46, 0.4);
-        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -488,22 +443,13 @@
             gallery.innerHTML = videosData.map(video => `
                 <div class="video-card">
                     <div class="video-player">
-                        <iframe src="https://player.vimeo.com/video/${video.fileId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">${video.title}</div>
-                        <div class="video-description">${video.description}</div>
-                        <div class="video-actions">
-                            <button onclick="openVideoInNewTab('${video.fileId}')">🔗 مشاهدة على Vimeo</button>
-                        </div>
+                        <iframe src="https://player.vimeo.com/video/${video.fileId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
             `).join('');
         }
 
-        function openVideoInNewTab(fileId) {
-            window.open(`https://vimeo.com/${fileId}`, '_blank');
-        }
+
 
         // Sample Models Data
         const modelsData = [
