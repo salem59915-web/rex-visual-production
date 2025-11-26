@@ -280,17 +280,23 @@
 
         .video-player {
             width: 100%;
-            height: 250px;
+            /* Aspect Ratio 9:16 - 16 / 9 * 100% = 177.77% */
+            padding-top: 177.77%; 
             background: #000;
             position: relative;
             overflow: hidden;
         }
 
         .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
         }
+
+
 
         .video-info {
             padding: 20px;
@@ -367,7 +373,8 @@
             }
 
             .video-player {
-                height: 200px;
+                /* Aspect Ratio 9:16 - 16 / 9 * 100% = 177.77% */
+                padding-top: 177.77%;
             }
         }
     </style>
