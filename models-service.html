@@ -230,6 +230,115 @@
             color: var(--text-light);
         }
 
+        /* Video Gallery Styles */
+        .video-gallery-section {
+            background: linear-gradient(135deg, rgba(139, 46, 46, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+            padding: 50px 20px;
+            margin-bottom: 50px;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 46, 46, 0.2);
+        }
+
+        .video-gallery-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .video-gallery-title h2 {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .video-gallery-title p {
+            font-size: 16px;
+            color: var(--text-gray);
+        }
+
+        .video-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .video-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%);
+            border: 1px solid rgba(139, 46, 46, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-red);
+            box-shadow: 0 20px 40px rgba(139, 46, 46, 0.3);
+        }
+
+        .video-player {
+            width: 100%;
+            height: 250px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .video-description {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        .video-actions {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid rgba(139, 46, 46, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        .video-actions button {
+            flex: 1;
+            padding: 10px;
+            background: var(--accent-red);
+            color: var(--text-light);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+        }
+
+        .video-actions button:hover {
+            background: #a03030;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 46, 46, 0.4);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .models-header h1 {
@@ -246,6 +355,18 @@
             }
 
             .model-image {
+                height: 200px;
+            }
+
+            .video-gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-gallery-title h2 {
+                font-size: 28px;
+            }
+
+            .video-player {
                 height: 200px;
             }
         }
@@ -271,6 +392,17 @@
         <div class="models-header">
             <h1>توفير المودل</h1>
             <p>اختر من بين مجموعة متنوعة من المودلز المحترفين لمشروعك</p>
+        </div>
+
+        <!-- Video Gallery Section -->
+        <div class="video-gallery-section">
+            <div class="video-gallery-title">
+                <h2>📹 معرض الفيديوهات</h2>
+                <p>مشاهد احترافية من أعمالنا</p>
+            </div>
+            <div id="video-gallery" class="video-gallery-grid">
+                <!-- Videos will be loaded here -->
+            </div>
         </div>
 
         <!-- Filters -->
@@ -331,6 +463,46 @@
     </footer>
 
     <script>
+        // Video Gallery Data
+        const videosData = [
+            {
+                id: 1,
+                title: 'عرض احترافي',
+                description: 'فيديو احترافي يعرض جودة الإنتاج العالية',
+                fileId: '1dYBpSwl4Wp7cyLqCp1kkUUt73b7U2M_P',
+                thumbnail: 'https://drive.google.com/uc?export=view&id=1dYBpSwl4Wp7cyLqCp1kkUUt73b7U2M_P'
+            }
+        ];
+
+        // Load Video Gallery
+        function loadVideoGallery() {
+            const gallery = document.getElementById('video-gallery');
+            
+            gallery.innerHTML = videosData.map(video => `
+                <div class="video-card">
+                    <div class="video-player">
+                        <iframe src="https://drive.google.com/file/d/${video.fileId}/preview" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-description">${video.description}</div>
+                        <div class="video-actions">
+                            <button onclick="openVideoInNewTab('${video.fileId}')">🔗 فتح في Google Drive</button>
+                            <button onclick="downloadVideo('${video.fileId}')">⬇️ تحميل</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openVideoInNewTab(fileId) {
+            window.open(`https://drive.google.com/file/d/${fileId}/view`, '_blank');
+        }
+
+        function downloadVideo(fileId) {
+            window.location.href = `https://drive.google.com/uc?export=download&id=${fileId}`;
+        }
+
         // Sample Models Data
         const modelsData = [
             {
@@ -431,6 +603,7 @@
         document.getElementById('category-filter').addEventListener('change', displayModels);
 
         // Initial Display
+        loadVideoGallery();
         displayModels();
     </script>
 </body>
