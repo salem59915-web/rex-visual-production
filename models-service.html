@@ -476,8 +476,8 @@
                 id: 1,
                 title: 'عرض احترافي',
                 description: 'فيديو احترافي يعرض جودة الإنتاج العالية',
-                fileId: '1dYBpSwl4Wp7cyLqCp1kkUUt73b7U2M_P',
-                thumbnail: 'https://drive.google.com/uc?export=view&id=1dYBpSwl4Wp7cyLqCp1kkUUt73b7U2M_P'
+                fileId: '1140916294', // Vimeo Video ID
+                source: 'vimeo'
             }
         ];
 
@@ -488,14 +488,13 @@
             gallery.innerHTML = videosData.map(video => `
                 <div class="video-card">
                     <div class="video-player">
-                        <iframe src="https://drive.google.com/file/d/${video.fileId}/preview" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://player.vimeo.com/video/${video.fileId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                     <div class="video-info">
                         <div class="video-title">${video.title}</div>
                         <div class="video-description">${video.description}</div>
                         <div class="video-actions">
-                            <button onclick="openVideoInNewTab('${video.fileId}')">🔗 فتح في Google Drive</button>
-                            <button onclick="downloadVideo('${video.fileId}')">⬇️ تحميل</button>
+                            <button onclick="openVideoInNewTab('${video.fileId}')">🔗 مشاهدة على Vimeo</button>
                         </div>
                     </div>
                 </div>
@@ -503,11 +502,7 @@
         }
 
         function openVideoInNewTab(fileId) {
-            window.open(`https://drive.google.com/file/d/${fileId}/view`, '_blank');
-        }
-
-        function downloadVideo(fileId) {
-            window.location.href = `https://drive.google.com/uc?export=download&id=${fileId}`;
+            window.open(`https://vimeo.com/${fileId}`, '_blank');
         }
 
         // Sample Models Data
