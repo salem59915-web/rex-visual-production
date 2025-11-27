@@ -425,33 +425,7 @@
     </footer>
 
     <script>
-        // Video Gallery Data
-        const videosData = [
-            {
-                id: 1,
-                title: 'عرض احترافي',
-                description: 'فيديو احترافي يعرض جودة الإنتاج العالية',
-                fileId: '1140916294', // Vimeo Video ID
-                source: 'vimeo'
-            }
-        ];
-
-        // Load Video Gallery
-        function loadVideoGallery() {
-            const gallery = document.getElementById('video-gallery');
-            
-            gallery.innerHTML = videosData.map(video => `
-                <div class="video-card">
-                    <div class="video-player">
-                                   <iframe src="https://player.vimeo.com/video/${video.fileId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>n="" loading="lazy"></iframe>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-
-
-        // Sample Models Data
+        // Sample Models Dataa
         const modelsData = [
             {
                 id: 1,
@@ -551,7 +525,6 @@
         document.getElementById('category-filter').addEventListener('change', displayCreators);
 
         // Initial Display
-        loadVideoGallery();
         displayCreators();
     </script>
 </body>
