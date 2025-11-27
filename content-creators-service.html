@@ -6,6 +6,69 @@
     <title>خدمة صناع المحتوى - REX</title>
     <link rel="stylesheet" href="src/style.css">
     <style>
+        /* Video Gallery Styles (Copied from models-service.html) */
+        .video-gallery-section {
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+
+        .video-gallery-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .video-gallery-title h2 {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .video-gallery-title p {
+            font-size: 16px;
+            color: var(--text-gray);
+        }
+
+        .video-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%);
+            border: 1px solid rgba(139, 46, 46, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-red);
+            box-shadow: 0 10px 30px rgba(139, 46, 46, 0.3);
+        }
+
+        .video-player {
+            position: relative;
+            width: 100%;
+            padding-top: 177.77%; /* 9:16 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* Content Creators Service Styles */
         .creators-container {
             min-height: 100vh;
@@ -274,6 +337,16 @@
 
     <!-- Main Content -->
     <div class="creators-container">
+        <!-- Video Gallery Section -->
+        <div class="video-gallery-section">
+            <div class="video-gallery-title">
+                <h2>📹 أعمالنا في صناعة المحتوى</h2>
+                <p>شاهد أمثلة من الفيديوهات التي تم إنتاجها</p>
+            </div>
+            <div id="video-gallery" class="video-gallery-grid">
+                <!-- Videos will be loaded here -->
+            </div>
+        </div>
         <div class="creators-header">
             <h1>صناع المحتوى</h1>
             <p>اختر من بين مجموعة متنوعة من صناع المحتوى المحترفين لمشروعك</p>
@@ -449,7 +522,53 @@
         document.getElementById('specialty-filter').addEventListener('change', displayCreators);
         document.getElementById('experience-filter').addEventListener('change', displayCreators);
 
+        // Video Gallery Data
+        const videosData = [
+            {
+                id: 1,
+                title: 'فيديو صانع محتوى #1',
+                description: 'فيديو عالي الجودة',
+                fileId: '1140983546', // Vimeo Video ID
+                source: 'vimeo'
+            },
+            {
+                id: 2,
+                title: 'فيديو صانع محتوى #2',
+                description: 'فيديو عالي الجودة',
+                fileId: '1140984229', // Vimeo Video ID
+                source: 'vimeo'
+            },
+            {
+                id: 3,
+                title: 'فيديو صانع محتوى #3',
+                description: 'فيديو عالي الجودة',
+                fileId: '1140984385', // Vimeo Video ID
+                source: 'vimeo'
+            },
+            {
+                id: 4,
+                title: 'فيديو صانع محتوى #4',
+                description: 'فيديو عالي الجودة',
+                fileId: '1140916294', // Vimeo Video ID
+                source: 'vimeo'
+            }
+        ];
+
+        // Load Video Gallery
+        function loadVideoGallery() {
+            const gallery = document.getElementById('video-gallery');
+            
+            gallery.innerHTML = videosData.map(video => `
+                <div class="video-card">
+                    <div class="video-player">
+                                   <iframe src="https://player.vimeo.com/video/${video.fileId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // Initial Display
+        loadVideoGallery();
         displayCreators();
     </script>
 </body>
