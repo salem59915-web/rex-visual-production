@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خدمة صناع المحتوى - REX</title>
+    <title>خدمة توفير المودل - REX</title>
     <link rel="stylesheet" href="src/style.css">
     <style>
         /* Models Service Styles */
@@ -342,7 +342,7 @@
             <ul class="nav-menu">
                 <li><a href="index.html">الرئيسية</a></li>
                 <li><a href="#services">الخدمات</a></li>
-                <li><a href="models-service.html" class="active">صناع المحتوى</a></li>
+                <li><a href="models-service.html" class="active">توفير المودل</a></li>
                 <li><a href="content-creators-service.html">صناع المحتوى</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
@@ -352,15 +352,15 @@
     <!-- Main Content -->
     <div class="models-container">
         <div class="models-header">
-            <h1>صناع المحتوى</h1>
-           <p>اختر من بين مجموعة متنوعة من صناع المحتوى المحترفين لمشروعك</p>
+            <h1>توفير المودل</h1>
+           <p>اختر من بين مجموعة متنوعة من الموديلات المحترفة لمشروعك</p>
         </div>
 
         <!-- Video Gallery Section -->
         <div class="video-gallery-section">
             <div class="video-gallery-title">
-                <h2>📹 أعمالنا في صناعة المحتوى</h2>
-                <p>شاهد أمثلة من الفيديوهات التي تم إنتاجها</p>
+                <h2>📹 معرض الفيديوهات</h2>
+                <p>مشاهد احترافية من أعمالنا</p>
             </div>
             <div id="video-gallery" class="video-gallery-grid">
                 <!-- Videos will be loaded here -->
@@ -385,22 +385,21 @@
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="gender-filter">التخصص</label>
+                    <label for="gender-filter">الجنس</label>
                     <select id="gender-filter">
                         <option value="">الكل</option>
-                        <option value="فيديو">فيديو</option>
-                        <option value="تصوير">تصوير</option>
-                        <option value="تحرير">تحرير</option>
-                        <option value="تصميم">تصميم</option>
+                        <option value="Female">إناث</option>
+                        <option value="Male">ذكور</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="category-filter">الخبرة</label>
+                    <label for="category-filter">الفئة</label>
                     <select id="category-filter">
                         <option value="">جميع المستويات</option>
-                        <option value="مبتدئ">مبتدئ</option>
-                        <option value="متوسط">متوسط</option>
-                        <option value="متقدم">متقدم</option>
+                        <option value="طفل">طفل</option>
+                        <option value="شاب">شاب</option>
+                        <option value="امرأة">امرأة</option>
+                        <option value="رجل">رجل</option>
                     </select>
                 </div>
             </div>
@@ -413,7 +412,7 @@
 
         <!-- Empty State -->
         <div id="empty-state" class="empty-state" style="display: none;">
-            <h3>لم يتم العثور على صناع محتوى</h3>
+            <h3>لم يتم العثور على مودلز</h3>
             <p>حاول تغيير معايير البحث</p>
         </div>
     </div>
@@ -452,49 +451,49 @@
 
 
 
-        // Sample Creators Data
-        cconst creatorsData = [
+        // Sample Models Data
+        const modelsData = [
             {
                 id: 1,
-                name: 'صانع محتوى 1',
+                name: 'مودل 1',
                 city: 'الرياض',
-                specialty: 'فيديو',
-                experience: 'متقدم',
+                gender: 'Female',
+                category: 'امرأة',
                 videos: 5,
                 photos: 12,
-                emoji: '🎬'
+                emoji: '👩‍🦰'
             },
             {
                 id: 2,
-                name: 'صانع محتوى 2',
+                name: 'مودل 2',
                 city: 'جدة',
-                specialty: 'تصوير',
-                experience: 'متوسط',
+                gender: 'Male',
+                category: 'شاب',
                 videos: 8,
                 photos: 15,
-                emoji: '📸'
+                emoji: '👨'
             },
             {
                 id: 3,
-                name: 'صانع محتوى 3',
+                name: 'مودل 3',
                 city: 'الرياض',
-                specialty: 'تحرير',
-                experience: 'متقدم',
+                gender: 'Male',
+                category: 'طفل',
                 videos: 3,
                 photos: 8,
-                emoji: '✂️'
+                emoji: '👦'
             },
             {
                 id: 4,
-                name: 'صانع محتوى 4',
+                name: 'مودل 4',
                 city: 'الدمام',
-                specialty: 'تصميم',
-                experience: 'متوسط',
+                gender: 'Female',
+                category: 'امرأة',
                 videos: 6,
                 photos: 18,
-                emoji: '🎨'
+                emoji: '👩'
             }
-        ];;
+        ];;;
 
         // Filter and Display Creators
         function displayCreators() {
