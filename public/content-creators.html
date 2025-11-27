@@ -79,19 +79,19 @@
       .video-container {
         position: relative;
         width: 100%;
-        padding-bottom: 177.78%;
+        padding-bottom: 177.78%; /* 9:16 Aspect Ratio */
         height: 0;
         overflow: hidden;
         background: #000;
       }
 
-      .video-container video {
+      .video-container iframe {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        border: none;
       }
 
       .video-info {
@@ -227,57 +227,59 @@
           <p>اطلع على أمثلة من أعمالنا الإبداعية والمبتكرة في مجال صناعة المحتوى</p>
         </div>
 
-        <div class="videos-grid">
-          <div class="video-card" onclick="openModal(0)">
-            <div class="video-container">
-              <video src="/SnapTik-dot-Kim-3fa301890436115e4d432ae3e90c37de.mp4" muted></video>
-            </div>
-            <div class="video-info">
-              <h3>محتوى إبداعي #1</h3>
-              <p>فيديو محتوى عالي الجودة</p>
-            </div>
-          </div>
-
-          <div class="video-card" onclick="openModal(1)">
-            <div class="video-container">
-              <video src="/snaptik_7535167891432410386_hd.mp4" muted></video>
-            </div>
-            <div class="video-info">
-              <h3>محتوى إبداعي #2</h3>
-              <p>فيديو محتوى عالي الجودة</p>
-            </div>
-          </div>
-
-          <div class="video-card" onclick="openModal(2)">
-            <div class="video-container">
-              <video src="videos/content_creator_video.mp4" muted></video>
-            </div>
-            <div class="video-info">
-              <h3>محتوى إبداعي #3</h3>
-              <p>فيديو محتوى عالي الجودة</p>
-            </div>
-          </div>
-
-          <div class="video-card" onclick="openModal(3)">
-            <div class="video-container">
-              <video src="/snaptik_7496610688593317138_hd.mp4" muted></video>
-            </div>
-            <div class="video-info">
-              <h3>محتوى إبداعي #4</h3>
-              <p>فيديو محتوى عالي الجودة</p>
-            </div>
-          </div>
-        </div>
+	        <div class="videos-grid">
+	          <!-- الفيديوهات الجديدة من Vimeo -->
+	          <div class="video-card" onclick="openModal(0)">
+	            <div class="video-container">
+	              <iframe src="https://player.vimeo.com/video/1140983546?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
+	            </div>
+	            <div class="video-info">
+	              <h3>فيديو صانع محتوى #1</h3>
+	              <p>فيديو عالي الجودة</p>
+	            </div>
+	          </div>
+	
+	          <div class="video-card" onclick="openModal(1)">
+	            <div class="video-container">
+	              <iframe src="https://player.vimeo.com/video/1140984229?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
+	            </div>
+	            <div class="video-info">
+	              <h3>فيديو صانع محتوى #2</h3>
+	              <p>فيديو عالي الجودة</p>
+	            </div>
+	          </div>
+	
+	          <div class="video-card" onclick="openModal(2)">
+	            <div class="video-container">
+	              <iframe src="https://player.vimeo.com/video/1140984385?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
+	            </div>
+	            <div class="video-info">
+	              <h3>فيديو صانع محتوى #3</h3>
+	              <p>فيديو عالي الجودة</p>
+	            </div>
+	          </div>
+	
+	          <div class="video-card" onclick="openModal(3)">
+	            <div class="video-container">
+	              <iframe src="https://player.vimeo.com/video/1140916294?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
+	            </div>
+	            <div class="video-info">
+	              <h3>فيديو صانع محتوى #4</h3>
+	              <p>فيديو عالي الجودة</p>
+	            </div>
+	          </div>
+	          <!-- نهاية الفيديوهات الجديدة -->
+	        </div>
       </div>
     </div>
 
-    <!-- Video Modal -->
-    <div id="videoModal" class="modal">
-      <div class="modal-content">
-        <button class="close-modal" onclick="closeModal()">&times;</button>
-        <video id="modalVideo" class="modal-video" controls autoplay></video>
-      </div>
-    </div>
+	    <!-- Video Modal -->
+	    <div id="videoModal" class="modal">
+	      <div class="modal-content">
+	        <button class="close-modal" onclick="closeModal()">&times;</button>
+	        <iframe id="modalVideo" class="modal-video" controls autoplay allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" loading="lazy"></iframe>
+	      </div>
+	    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -287,28 +289,28 @@
     </footer>
 
     <script>
-      const videos = [
-        '/SnapTik-dot-Kim-3fa301890436115e4d432ae3e90c37de.mp4',
-        '/snaptik_7535167891432410386_hd.mp4',
-        'videos/content_creator_video.mp4',
-        '/snaptik_7496610688593317138_hd.mp4'
-      ];
-
-      function openModal(index) {
-        const modal = document.getElementById('videoModal');
-        const modalVideo = document.getElementById('modalVideo');
-        modalVideo.src = videos[index];
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeModal() {
-        const modal = document.getElementById('videoModal');
-        const modalVideo = document.getElementById('modalVideo');
-        modal.classList.remove('active');
-        modalVideo.pause();
-        document.body.style.overflow = 'auto';
-      }
+	      const videos = [
+	        'https://player.vimeo.com/video/1140983546?autoplay=1&badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+	        'https://player.vimeo.com/video/1140984229?autoplay=1&badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+	        'https://player.vimeo.com/video/1140984385?autoplay=1&badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+	        'https://player.vimeo.com/video/1140916294?autoplay=1&badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479'
+	      ];
+	
+	      function openModal(index) {
+	        const modal = document.getElementById('videoModal');
+	        const modalVideo = document.getElementById('modalVideo');
+	        modalVideo.src = videos[index];
+	        modal.classList.add('active');
+	        document.body.style.overflow = 'hidden';
+	      }
+	
+	      function closeModal() {
+	        const modal = document.getElementById('videoModal');
+	        const modalVideo = document.getElementById('modalVideo');
+	        modal.classList.remove('active');
+	        modalVideo.src = ''; // Stop video playback
+	        document.body.style.overflow = 'auto';
+	      }
 
       // Close modal when clicking outside
       document.getElementById('videoModal').addEventListener('click', function(e) {
